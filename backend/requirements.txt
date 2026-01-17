@@ -1,9 +1,0 @@
-fastapi
-uvicorn==0.30.6
-pandas
-numpy
-scikit-learn
-xgboost
-joblib
-
-
