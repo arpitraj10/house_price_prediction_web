@@ -5,7 +5,7 @@ from backend.schemas import HouseInput
 import joblib
 import os
 
-from utils import confidence_interval
+from backend.utils import confidence_interval
 
 app = FastAPI(title="House Price Prediction Web")
 
