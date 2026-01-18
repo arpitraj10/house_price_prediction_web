@@ -8,7 +8,3 @@ export const predictPrice = async (data) => {
   return res.data;
 };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 740533629726d380dfa2042eb7d743346ba139fb
