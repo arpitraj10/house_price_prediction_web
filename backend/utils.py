@@ -1,7 +1,6 @@
-import numpy as np
 
-def confidence_interval(pred, std):
-    return {
-        "min": round(pred - 1.96 * std, 2),
-        "max": round(pred + 1.96 * std, 2)
-    }
+
+def confidence_interval(prediction, margin=0.1):
+    lower = prediction * (1 - margin)
+    upper = prediction * (1 + margin)
+    return lower, upper

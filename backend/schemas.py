@@ -5,4 +5,4 @@ class HouseInput(BaseModel):
     gr_liv_area: float
     garage_cars: int
     total_bsmt_sf: float
-    year_built: int
+    

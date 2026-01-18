@@ -4,7 +4,7 @@ from backend.schemas import HouseInput
 
 import joblib
 import os
-import numpy as np
+
 from utils import confidence_interval
 
 app = FastAPI(title="House Price Prediction Web")
@@ -17,6 +17,7 @@ app.add_middleware(
 )
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
+
 
 model = joblib.load(MODEL_PATH)
 
