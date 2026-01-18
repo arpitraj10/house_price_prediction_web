@@ -20,7 +20,7 @@ features = model_data["features"]
 
 @app.get("/")
 def health():
-     return {"status": "API running"}
+     return {"status": "House Price Prediction API is running"}
 
 @app.post("/predict")
 def predict_price(data: HouseInput):
@@ -40,5 +40,6 @@ def predict_price(data: HouseInput):
         "confidence_range": confidence_interval(prediction, std),
         "feature_importance": dict(zip(features, model.feature_importances_.tolist()))
     }
+
 
 
