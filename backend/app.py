@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import HouseInput
+from backend.schemas import HouseInput
+
 import joblib
 import numpy as np
 from utils import confidence_interval
@@ -40,6 +41,7 @@ def predict_price(data: HouseInput):
         "confidence_range": confidence_interval(prediction, std),
         "feature_importance": dict(zip(features, model.feature_importances_.tolist()))
     }
+
 
 
 
