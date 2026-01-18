@@ -18,13 +18,15 @@ app.add_middleware(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
 
 model = joblib.load(MODEL_PATH)
 
 
 @app.get("/")
 def health():
-     return {"status": "House Price Prediction API Running"}
+     return {"status": ""API is running"}
 
 @app.post("/predict")
 def predict_price(data: HouseInput):
