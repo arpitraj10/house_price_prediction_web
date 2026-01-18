@@ -26,7 +26,7 @@ model = joblib.load(MODEL_PATH)
 
 @app.get("/")
 def health():
-     return {"status": ""API is running"}
+     return {"status": "API is running"}
 
 @app.post("/predict")
 def predict_price(data: HouseInput):
