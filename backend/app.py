@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.schemas import HouseInput
 
 import joblib
+import os
 import numpy as np
 from utils import confidence_interval
 
@@ -14,14 +15,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
-model_data = joblib.load("model/house_price_model.pkl")
-model = model_data["model"]
-features = model_data["features"]
+model = joblib.load(MODEL_PATH)
+
 
 @app.get("/")
 def health():
-     return {"status": "House Price API Running"}
+     return {"status": "House Price Prediction API Running"}
 
 @app.post("/predict")
 def predict_price(data: HouseInput):
@@ -41,6 +43,7 @@ def predict_price(data: HouseInput):
         "confidence_range": confidence_interval(prediction, std),
         "feature_importance": dict(zip(features, model.feature_importances_.tolist()))
     }
+
 
 
 
