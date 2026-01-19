@@ -5,5 +5,5 @@ class HouseInput(BaseModel):
     gr_liv_area: int
     garage_cars: int
     total_bsmt_sf: int
-    full_bath: int
     year_built: int
+
