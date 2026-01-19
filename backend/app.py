@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.schemas import HouseInput
-
-import joblib
+import numpy as np
+from fastapi import HTTPException
 import os
+import joblib
 
 from backend.utils import confidence_interval
 
@@ -18,8 +19,6 @@ app.add_middleware(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
 
 model = joblib.load(MODEL_PATH)
 
@@ -29,23 +28,26 @@ def health():
      return {"status": "API is running"}
 
 @app.post("/predict")
-def predict_price(data: HouseInput):
-    input_data = np.array([[
-        data.overall_qual,
-        data.gr_liv_area,
-        data.garage_cars,
-        data.total_bsmt_sf,
-        data.year_built
-    ]])
+def predict(data: HouseInput):
+    try:
+         features = np.array([[
+              data.overall_qual,
+              data.gr_liv_area,
+              data.garage_cars,
+              data.total_bsmt_sf,
+              data.full_bath,
+              data.year_built
+         ]])
 
-    prediction = model.predict(input_data)[0]
-    std = np.std([tree.predict(input_data)[0] for tree in model.estimators_])
+         prediction = model.predict(features)[0]
 
-    return {
-        "predicted_price": round(prediction, 2),
-        "confidence_range": confidence_interval(prediction, std),
-        "feature_importance": dict(zip(features, model.feature_importances_.tolist()))
-    }
+         return {
+              "predicted_price": float(prediction)
+         }
+
+    except Exception as e:
+         print("ERROR:", e)
+         raise HTTPException(status_code=500, detail=str(e))      
 
 
 
