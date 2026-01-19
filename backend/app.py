@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.schemas import HouseInput
+from schemas import HouseInput
 import numpy as np
 from fastapi import HTTPException
 import os
@@ -35,14 +35,13 @@ def predict(data: HouseInput):
               data.gr_liv_area,
               data.garage_cars,
               data.total_bsmt_sf,
-              data.full_bath,
               data.year_built
          ]])
 
          prediction = model.predict(features)[0]
 
          return {
-              "predicted_price": float(prediction)
+              "predicted_price": round(prediction, 2)
          }
 
     except Exception as e:
