@@ -25,6 +25,7 @@ MODEL_PATH = os.path.join(
     os.path.dirname(__file__),
     "..",
     "model.pkl"
+)    
 
 
 model = None
@@ -50,6 +51,7 @@ def predict(data: HouseInput):
     except Exception as e:
          print("ERROR:", e)
          raise HTTPException(status_code=500, detail=str(e))      
+
 
 
 
