@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import HouseInput
+from backend.schemas import HouseInput
 import numpy as np
 from fastapi import HTTPException
 import os
@@ -47,6 +47,7 @@ def predict(data: HouseInput):
     except Exception as e:
          print("ERROR:", e)
          raise HTTPException(status_code=500, detail=str(e))      
+
 
 
 
