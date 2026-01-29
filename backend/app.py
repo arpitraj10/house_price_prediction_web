@@ -39,7 +39,7 @@ def get_model():
 
 @app.get("/")
 def health():
-     return {"status": "OK"}
+     return {"status": "Backend running"}
 
 @app.post("/predict")
 def predict(data: HouseInput):
@@ -50,6 +50,7 @@ def predict(data: HouseInput):
     except Exception as e:
          print("ERROR:", e)
          raise HTTPException(status_code=500, detail=str(e))      
+
 
 
 
