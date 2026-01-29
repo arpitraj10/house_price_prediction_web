@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.getcwd())
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.schemas import HouseInput
@@ -46,6 +50,7 @@ def predict(data: HouseInput):
     except Exception as e:
          print("ERROR:", e)
          raise HTTPException(status_code=500, detail=str(e))      
+
 
 
 
